@@ -1,0 +1,144 @@
+--creation of table employee
+create table employee(e_id int,firstname varchar(255),lastname varchar(255),designatiopn varchar(255),age int,salary int);
+
+--insertion in the table employee
+insert into employee values(1,'meenakshi','kumari','SET',22,25000);
+insert into employee values(2,'meena','kumari','developer',21,30000);
+insert into employee values(3,'anjali','kumari','developer',20,15000);
+insert into employee values(4,'smriti','sharma','tester',19,40000);
+insert into employee values(5,'sweta','singh','tester',37,60000);
+
+--question 1(SQL select)
+select firstname,lastname,designatiopn from employee;
+
+--question 2(SQL distinct)
+select distinct designatiopn from employee;
+
+--question 3(SQL where)
+select * from employee where salary<20000;
+
+--question 4(SQL And & Or)
+(i) select * from employee where salary>50000 AND age<35;
+(ii) select * from employee where salary>50000 and (designatiopn='manager' OR designatiopn='Tech Leads');
+
+--question 5(SQL order by)
+select TOP 5 * from employee order by salary desc;
+
+--question 6(SQL insert)
+insert into employee values(9,'aradhana','sharma','Tech Leads',42,90000);
+
+--question 7(SQL update)
+insert into employee values(9,'aradhana','sharma','Tech Leads',42,90000);
+
+--question 8(SQL delete)
+delete from employee where [half yearly grade]=1 and designatiopn='trainee';
+
+--question 9(SQL top)
+(i) --TOP 3
+ select TOP 3 * from employee order by salary desc;
+(ii) --second highest
+ select max(salary) as secondHighest from employee where salary<(select max(salary) from employee); 
+(iii) --third highest
+ select max(salary) as thirdHighest from employee where salary<(select max(salary) from employee where salary<(select max(salary) from employee));
+
+--question 10(SQL like)
+select salary from employee where name like 'akash';
+
+--question 11(SQL wildcards)
+(i) select * from employee where lastname like '%um%';
+(ii) select * from employee where lastname like '_umar_';
+
+--question 12(SQL in)
+select salary from employee where firstname in('smriti','aradhana','sweta');
+
+--question 13(SQL between)
+select salary from employee where salary between 30000 and 50000;
+
+--question 14(SQL alias)
+select designatiopn as post,firstname,lastname as surname from employee;
+
+--creation of table employee_slabs
+create table employee_slabs(basic int,allowance int,gross int,e_id int);
+
+--insertion in the table employee_slabs
+insert into employee_slabs values(20000,10000,30000,2);
+insert into employee_slabs values(75000,15000,90000,10);
+insert into employee_slabs values(10000,5000,15000,3);
+insert into employee_slabs values(32000,8000,40000,4);
+insert into employee_slabs values(40000,10000,50000,5);
+
+
+--question 15(SQL inner join)
+SELECT employee.e_id, employee.firstname,employee.lastname,employee.designatiopn,employee.age,employee.salary,employee.name FROM employee
+INNER JOIN employee_slabs
+ON employee.e_id=employee_slabs.e_id;
+
+--question 16(SQL inner join)
+SELECT employee.e_id, employee.firstname,employee.lastname,employee.designatiopn,employee.age,employee.salary,employee.name FROM employee
+INNER JOIN employee_slabs
+ON employee.e_id=employee_slabs.e_id;
+
+--creation of table department
+create table department(department_id int,department_name varchar(255));
+
+--insertion in the table department
+insert into department values(1,'java');
+insert into department values(2,'.net');
+insert into department values(3,'HR');
+insert into department values(4,'php');
+insert into department values(5,'python');
+
+--question 17(SQL left join)
+select * from employee left join department on employee.department_id=department.department_id;
+
+--question 18(SQL right join)
+select * from employee right join department on employee.department_id=department.department_id;
+
+--question 19(SQL full join)
+select * from employee full join department on employee.department_id=department.department_id;
+
+--question 19(SQL union)
+create table ABC_emp(emp_id int,emp_name varchar(255),emp_company varchar(255));
+create table XYZ_emp(emp_id int,emp_name varchar(255),emp_company varchar(255));
+create table LMN_emp(emp_id int,emp_name varchar(255),emp_company varchar(255));
+insert into ABC_emp values(1,'mohit','ABC');
+insert into ABC_emp values(2,'sahil','ABC');
+insert into XYZ_emp values(1,'sumit','XYZ');
+insert into XYZ_emp values(2,'nitish','XYZ');
+insert into LMN_emp values(1,'abhay','LMN');
+insert into LMN_emp values(2,'parveen','LMN');
+
+select * from ABC_emp union select * from XYZ_emp union select * from LMN_emp;
+
+--question 21(SQL create DB)
+create database db1;
+
+--question 22(SQL create table)
+create table company(name varchar(255),location varchar(255));
+
+--question 29,30,31,32,33,34,35(SQL not null,SQL unique,SQL primary key,SQL foreign key,SQL check,SQL default)
+create table employee(e_name varchar(255) unique ,e_id int primary key,address varchar(255) not null default 'noida',department_id int,foreign key(department_id) references department(department_id),check(e_id>0));
+
+--question 36(SQL drop)
+create table designation(d_id int,d_name varchar(255));
+drop table designation;
+
+--question 37(SQL create index)
+ create unique index nameindex on employee(firstname,lastname);
+
+--question 38(SQL alter)
+alter table employee alter column designatiopn int;
+
+--question 39(SQL increment)
+update employee set salary=salary+5000;
+
+--question 40(SQL views)
+create view sr_manager as select * from employee where designatiopn='manageer' and salary>60000;
+
+--question 42(SQL nulls)
+select count(salary) from employee;
+
+
+
+
+
